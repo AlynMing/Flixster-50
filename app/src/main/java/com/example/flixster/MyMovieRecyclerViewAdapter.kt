@@ -2,19 +2,18 @@ package com.example.flixster
 
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 
 import com.example.flixster.placeholder.PlaceholderContent.PlaceholderItem
 import com.example.flixster.databinding.FragmentItemBinding
+import com.example.flixster.models.Movie
 
 /**
  * [RecyclerView.Adapter] that can display a [PlaceholderItem].
  * TODO: Replace the implementation with code for your data type.
  */
 class MyMovieRecyclerViewAdapter(
-    private val values: List<PlaceholderItem>
+    private val movies: List<Movie>
 ) : RecyclerView.Adapter<MyMovieRecyclerViewAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -30,11 +29,11 @@ class MyMovieRecyclerViewAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val item = values[position]
+        val item = movies[position]
 
     }
 
-    override fun getItemCount(): Int = values.size
+    override fun getItemCount(): Int = movies.size
 
     inner class ViewHolder(binding: FragmentItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

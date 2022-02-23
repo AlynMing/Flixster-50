@@ -2,19 +2,20 @@ package com.example.flixster
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.ContentLoadingProgressBar
-import com.example.flixster.placeholder.PlaceholderContent
+import com.example.flixster.models.Movie
+import com.example.flixster.networking.MoviesDBApiClient
 
 /**
  * A fragment representing a list of Items.
  */
 class MovieFragment : Fragment() {
+    private val movies = mutableListOf<Movie>()
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +32,8 @@ class MovieFragment : Fragment() {
 
     private fun updateAdapter(pb: ContentLoadingProgressBar, rv: RecyclerView) {
         pb.show()
+        val movieDBApiClient = MoviesDBApiClient()
+        movies.addAll(movieDBApiClient.getResults())
     }
 
     companion object {

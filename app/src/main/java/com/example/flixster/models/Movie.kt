@@ -1,13 +1,30 @@
 package com.example.flixster.models
 
-import com.google.gson.annotations.SerializedName
+import org.json.JSONArray
 
-class Movie {
 
-    @SerializedName("title")
-    var title: String? = null
-
-    @SerializedName("description")
-    var description: String? = null
-
+data class Movie(
+    val movieId: Int,
+    private val posterPath: String,
+    val title: String,
+    val overview: String,
+) {
+    val posterImageURL = "https://image.tmdb.org/t/p/$posterPath"
+    companion object {
+        fun fromJsonArray(movieJsonArray: JSONArray): List<Movie> {
+            val movies = mutableListOf<Movie>()
+            for (i  in 0 until movieJsonArray.length()) {
+                val movieJson = movieJsonArray.getJSONObject(i)
+                movies.add(
+                    Movie(
+                        movieJson.getInt("id"),
+                        movieJson.getString("poster_path"),
+                        movieJson.getString("title"),
+                        movieJson.getString("overview")
+                    )
+                )
+            }
+            return movies
+        }
+    }
 }
