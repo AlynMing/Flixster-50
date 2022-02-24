@@ -46,7 +46,11 @@ class MyMovieRecyclerViewAdapter(
         fun bind(movie: Movie) {
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
-            Glide.with(context).load(movie.posterImageURL).into(ivPoster)
+            Glide.with(context)
+                .load(movie.posterImageURL)
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_warning)
+                .into(ivPoster)
         }
     }
 
