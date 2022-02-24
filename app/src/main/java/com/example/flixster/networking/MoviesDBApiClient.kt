@@ -8,13 +8,13 @@ import okhttp3.Headers
 import org.json.JSONException
 
 private const val TAG = "MoviesDBApiClient"
-private const val API_KEY = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
+private const val API_URL = "https://api.themoviedb.org/3/movie/now_playing?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
 class MoviesDBApiClient {
     var movies = mutableListOf<Movie>()
 
     init {
         val client = AsyncHttpClient()
-        client.get(API_KEY, object: JsonHttpResponseHandler() {
+        client.get(API_URL, object: JsonHttpResponseHandler() {
             override fun onFailure(
                 statusCode: Int, headers: Headers?, response: String?, throwable: Throwable?
             ) {
