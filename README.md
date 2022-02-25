@@ -22,7 +22,7 @@ Flixster is an app that allows users to browse movies from the [The Movie Databa
 
 ### App Walkthough GIF
 
-<img src="https://github.com/Pyrotacticz/Flixster/FlixsterWalkThrough.gif" width=250><br>
+<img src="https://github.com/Pyrotacticz/Flixster/blob/f934dc33692551cf77c2bafca76117b310c28a94/FlixsterWalkThrough.gif" width=250><br>
 
 ### Notes
 Tried using Fragments, but was not familiar to setting it up so it was a bit confusing to use. Spend a chunk of time figuring it out with no success.
