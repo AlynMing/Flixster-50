@@ -1,6 +1,8 @@
 package com.example.flixster
 
 import android.content.Context
+import android.content.res.Configuration
+import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -18,25 +20,59 @@ import com.example.flixster.models.Movie
 class MyMovieRecyclerViewAdapter(
     private val context: Context,
     private val movies: List<Movie>
-) : RecyclerView.Adapter<MyMovieRecyclerViewAdapter.MovieViewHolder>() {
+) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+    private val MOVIE = 0
+    private val POP = 1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder {
-        return MovieViewHolder(
-            LayoutInflater.from(parent.context).inflate(
-                R.layout.movie_item,
-                parent,
-                false
-            )
-        )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+        val viewHolder: RecyclerView.ViewHolder
+        val inflater = LayoutInflater.from(parent.context)
+        viewHolder = when (viewType) {
+            MOVIE -> {
+                val view: View = inflater.inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view)
+            }
+            POP -> {
+                val view: View = inflater.inflate(R.layout.pop_movie_item, parent, false)
+                PopMovieViewHolder(view)
+            }
+            else -> {
+                val view: View = inflater.inflate(R.layout.movie_item, parent, false)
+                MovieViewHolder(view)
+            }
+        }
+
+        return viewHolder
 
     }
 
-    override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         val movie = movies[position]
-        holder.bind(movie)
+        when(holder.itemViewType) {
+            MOVIE -> {
+                val view = holder as MovieViewHolder
+                view.bind(movie)
+            }
+            POP -> {
+                val view = holder as PopMovieViewHolder
+                Log.i("Test pop movie", movie.stars.toString())
+                view.bind(movie)
+            }
+            else -> {
+                val view = holder as MovieViewHolder
+                view.bind(movie)
+            }
+        }
     }
 
     override fun getItemCount(): Int = movies.size
+
+    override fun getItemViewType(position: Int): Int {
+        if (movies[position].stars < 5.0) {
+            return MOVIE
+        }
+        return POP
+    }
 
     inner class MovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding) {
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
@@ -46,12 +82,30 @@ class MyMovieRecyclerViewAdapter(
         fun bind(movie: Movie) {
             tvTitle.text = movie.title
             tvOverview.text = movie.overview
+            val toLoad: String
+            if (context.resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT) {
+                toLoad = movie.posterImageURL
+            }
+            else {
+                toLoad = movie.backdropURL
+            }
             Glide.with(context)
-                .load(movie.posterImageURL)
+                .load(toLoad)
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_warning)
                 .into(ivPoster)
         }
     }
 
+    inner class PopMovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding) {
+        private val ivBackDrop = itemView.findViewById<ImageView>(R.id.ivBackDrop)
+
+        fun bind(movie: Movie) {
+            Glide.with(context)
+                .load(movie.backdropURL)
+                .placeholder(R.drawable.ic_placeholder)
+                .error(R.drawable.ic_warning)
+                .into(ivBackDrop)
+        }
+    }
 }

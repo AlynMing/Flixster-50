@@ -6,12 +6,15 @@
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.19" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/drawable/placeholder.xml" value="0.19" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout-land/activity_main.xml" value="0.2125" />
-        <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout-land/movie_item.xml" value="0.2125" />
+        <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout-land/movie_item.xml" value="0.33" />
+        <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout-land/pop_movie_item.xml" value="0.2125" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/activity_main.xml" value="0.2692502532928065" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/fragment_item.xml" value="0.2692502532928065" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/fragment_item_list.xml" value="0.2624113475177305" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/movie_item.xml" value="0.18478260869565216" />
         <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/movie_list.xml" value="0.18478260869565216" />
+        <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/layout/pop_movie_item.xml" value="0.2674772036474164" />
+        <entry key="..\:/James Files/Work/School/Projects/Flixster/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.2815" />
       </map>
     </option>
   </component>

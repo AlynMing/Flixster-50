@@ -1,5 +1,6 @@
 package com.example.flixster
 
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        if (resources.configuration.orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            supportActionBar?.hide()
+        }
+
         rvMovies = findViewById(R.id.rvMovies)
 
         val movieAdapter = MyMovieRecyclerViewAdapter(this, movies)
