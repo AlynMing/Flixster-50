@@ -1,6 +1,7 @@
 package com.example.flixster
 
 import android.content.Context
+import android.content.Intent
 import android.content.res.Configuration
 import android.util.Log
 import androidx.recyclerview.widget.RecyclerView
@@ -17,6 +18,8 @@ import com.example.flixster.models.Movie
  * [RecyclerView.Adapter] that can display a [Movie].
  * TODO: Replace the implementation with code for your data type.
  */
+
+const val MOVIE_EXTRA = "MOVIE_EXTRA"
 class MyMovieRecyclerViewAdapter(
     private val context: Context,
     private val movies: List<Movie>
@@ -74,10 +77,14 @@ class MyMovieRecyclerViewAdapter(
         return POP
     }
 
-    inner class MovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding) {
+    inner class MovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding), View.OnClickListener {
         private val ivPoster = itemView.findViewById<ImageView>(R.id.ivPoster)
         private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
         private val tvOverview = itemView.findViewById<TextView>(R.id.tvOverview)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(movie: Movie) {
             tvTitle.text = movie.title
@@ -95,10 +102,21 @@ class MyMovieRecyclerViewAdapter(
                 .error(R.drawable.ic_warning)
                 .into(ivPoster)
         }
+
+        override fun onClick(v: View?) {
+            val movie = movies[adapterPosition]
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA, movie)
+            context.startActivity(intent)
+        }
     }
 
-    inner class PopMovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding) {
+    inner class PopMovieViewHolder(binding: View) : RecyclerView.ViewHolder(binding), View.OnClickListener {
         private val ivBackDrop = itemView.findViewById<ImageView>(R.id.ivBackDrop)
+
+        init {
+            itemView.setOnClickListener(this)
+        }
 
         fun bind(movie: Movie) {
             Glide.with(context)
@@ -106,6 +124,13 @@ class MyMovieRecyclerViewAdapter(
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_warning)
                 .into(ivBackDrop)
+        }
+
+        override fun onClick(v: View?) {
+            val movie = movies[adapterPosition]
+            val intent = Intent(context, DetailActivity::class.java)
+            intent.putExtra(MOVIE_EXTRA, movie)
+            context.startActivity(intent)
         }
     }
 }
