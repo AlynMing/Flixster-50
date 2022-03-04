@@ -22,7 +22,7 @@ Flixster is an app that allows users to browse movies from the [The Movie Databa
 
 ### App Walkthough GIF
 
-<img src="https://github.com/Pyrotacticz/Flixster/blob/512ab6f4bceb4235d05a861f50a529547bcd5db0/Flixster2WalkThrough.gif" width=250><br>
+<img src="https://github.com/Pyrotacticz/Flixster/blob/512ab6f4bceb4235d05a861f50a529547bcd5db0/Flixster2WalkThrough.gif" width=300><br>
 
 ### Notes
 Github emailed me that my Youtube API key should be secret so I updated my API key and took it out of the git repo. I took out the other one for moviedb as well.
