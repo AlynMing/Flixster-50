@@ -22,6 +22,7 @@ class DetailActivity : YouTubeBaseActivity() {
     private lateinit var tvOverview: TextView
     private lateinit var ratingBar: RatingBar
     private lateinit var ytPlayerView: YouTubePlayerView
+    private lateinit var tvNumVotes: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +31,7 @@ class DetailActivity : YouTubeBaseActivity() {
         tvOverview = findViewById(R.id.tvOverview)
         ratingBar = findViewById(R.id.rbVoteAverage)
         ytPlayerView = findViewById(R.id.player)
+        tvNumVotes = findViewById(R.id.tvNumVotes)
 
 
         val movie = intent.getParcelableExtra<Movie>(MOVIE_EXTRA) as Movie
@@ -37,6 +39,7 @@ class DetailActivity : YouTubeBaseActivity() {
         tvTitle.text = movie.title
         tvOverview.text = movie.overview
         ratingBar.rating = movie.stars.toFloat()
+        tvNumVotes.text = movie.numVotes.toString() + " Votes"
 
         val client = AsyncHttpClient()
         client.get(TRAILERS_URL.format(movie.movieId), object: JsonHttpResponseHandler() {
@@ -64,18 +67,16 @@ class DetailActivity : YouTubeBaseActivity() {
     }
 
     private fun initializeYoutube(youtubeKey: String, autoplay: Boolean) {
-
         ytPlayerView.initialize(YOUTUBE_API_KEY, object: YouTubePlayer.OnInitializedListener{
             override fun onInitializationSuccess(
                 provider: YouTubePlayer.Provider?,
                 player: YouTubePlayer?,
-                p2: Boolean
+                wasRestored: Boolean
             ) {
                 Log.i(TAG, "onInitializationSuccess")
                 if (autoplay) {
                     player?.loadVideo(youtubeKey)
-                }
-                else {
+                } else {
                     player?.cueVideo(youtubeKey)
                 }
             }

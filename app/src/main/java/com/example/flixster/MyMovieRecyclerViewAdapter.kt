@@ -19,7 +19,6 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
  * [RecyclerView.Adapter] that can display a [Movie].
- * TODO: Replace the implementation with code for your data type.
  */
 
 const val MOVIE_EXTRA = "MOVIE_EXTRA"

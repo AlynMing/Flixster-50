@@ -13,6 +13,7 @@ data class Movie(
     val title: String,
     val overview: String,
     val stars: Double,
+    val numVotes: Int,
 ) : Parcelable {
     @IgnoredOnParcel
     val posterImageURL = "https://image.tmdb.org/t/p/w342/$posterPath"
@@ -22,7 +23,7 @@ data class Movie(
     companion object {
         fun fromJsonArray(movieJsonArray: JSONArray): List<Movie> {
             val movies = mutableListOf<Movie>()
-            for (i  in 0 until movieJsonArray.length()) {
+            for (i in 0 until movieJsonArray.length()) {
                 val movieJson = movieJsonArray.getJSONObject(i)
                 movies.add(
                     Movie(
@@ -31,7 +32,8 @@ data class Movie(
                         movieJson.getString("backdrop_path"),
                         movieJson.getString("title"),
                         movieJson.getString("overview"),
-                        movieJson.getDouble("vote_average")
+                        movieJson.getDouble("vote_average"),
+                        movieJson.getInt("vote_count")
                     )
                 )
             }
