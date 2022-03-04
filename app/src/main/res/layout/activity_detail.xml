@@ -10,6 +10,7 @@
 
     <com.google.android.youtube.player.YouTubePlayerView
         android:id="@+id/player"
+        android:transitionName="poster"
         android:layout_width="match_parent"
         android:layout_height="250dp"/>
 
@@ -20,6 +21,7 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1"
+        android:transitionName="title"
         android:text="The Greatest Movie of All Time" />
 
     <RatingBar
@@ -42,5 +44,6 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:transitionName="overview"
         android:text="this is some description \nthis is some description \nthis is some description" />
 </LinearLayout>

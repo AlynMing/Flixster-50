@@ -14,11 +14,10 @@ import com.google.android.youtube.player.YouTubePlayer
 import com.google.android.youtube.player.YouTubePlayerView
 import okhttp3.Headers
 
-private const val YOUTUBE_API_KEY = "AIzaSyAHGX0ttxJ3A6nHc6xh-k_G8c76CQbRhZY"
-private const val TRAILERS_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=a07e22bc18f5cb106bfe4cc1f83ad8ed"
+private const val YOUTUBE_API_KEY = BuildConfig.YOUTUBE_KEY
+private const val TRAILERS_URL = "https://api.themoviedb.org/3/movie/%d/videos?api_key=${BuildConfig.MOVIEDB_KEY}"
 private const val TAG = "DetailActivity"
 class DetailActivity : YouTubeBaseActivity() {
-
     private lateinit var tvTitle: TextView
     private lateinit var tvOverview: TextView
     private lateinit var ratingBar: RatingBar
@@ -51,7 +50,7 @@ class DetailActivity : YouTubeBaseActivity() {
             }
 
             override fun onSuccess(statusCode: Int, headers: Headers?, json: JSON) {
-                Log.i(TAG, "onSuccess")
+                Log.i(TAG, "onSuccess: JSON data $json")
                 val results = json.jsonObject.getJSONArray("results")
                 if (results.length() == 0) {
                     Log.w(TAG, "No movie trailers")
@@ -59,12 +58,13 @@ class DetailActivity : YouTubeBaseActivity() {
                 }
                 val movieTrailerJson = results.getJSONObject(0)
                 val youtubeKey = movieTrailerJson.getString("key")
-                initializeYoutube(youtubeKey)
+                initializeYoutube(youtubeKey, movie.stars > 5)
             }
         })
     }
 
-    private fun initializeYoutube(youtubeKey: String) {
+    private fun initializeYoutube(youtubeKey: String, autoplay: Boolean) {
+
         ytPlayerView.initialize(YOUTUBE_API_KEY, object: YouTubePlayer.OnInitializedListener{
             override fun onInitializationSuccess(
                 provider: YouTubePlayer.Provider?,
@@ -72,7 +72,12 @@ class DetailActivity : YouTubeBaseActivity() {
                 p2: Boolean
             ) {
                 Log.i(TAG, "onInitializationSuccess")
-                player?.cueVideo(youtubeKey)
+                if (autoplay) {
+                    player?.loadVideo(youtubeKey)
+                }
+                else {
+                    player?.cueVideo(youtubeKey)
+                }
             }
 
             override fun onInitializationFailure(
@@ -82,5 +87,6 @@ class DetailActivity : YouTubeBaseActivity() {
                 Log.i(TAG, "onInitializationFailure")
             }
         })
+
     }
 }

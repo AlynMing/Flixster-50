@@ -12,6 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
         android:adjustViewBounds="true"
+        android:transitionName="poster"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_launcher_background" />
@@ -27,6 +28,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         android:textStyle="bold"
         android:gravity="center_horizontal"
+        android:transitionName="title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintLeft_toRightOf="@id/ivPoster"
         app:layout_constraintStart_toEndOf="@id/ivPoster"
@@ -42,6 +44,7 @@
         android:ellipsize="end"
         android:maxLines="5"
         android:text="this is some description \nthis is some description \nthis is some description"
+        android:transitionName="overview"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@id/ivPoster"
         app:layout_constraintTop_toBottomOf="@id/tvTitle" />

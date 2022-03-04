@@ -1,5 +1,6 @@
 package com.example.flixster
 
+import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.content.res.Configuration
@@ -10,9 +11,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.core.app.ActivityOptionsCompat
 import com.bumptech.glide.Glide
 
 import com.example.flixster.models.Movie
+import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
 /**
  * [RecyclerView.Adapter] that can display a [Movie].
@@ -100,6 +103,7 @@ class MyMovieRecyclerViewAdapter(
                 .load(toLoad)
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_warning)
+                .transform(RoundedCornersTransformation(30, 10))
                 .into(ivPoster)
         }
 
@@ -107,7 +111,12 @@ class MyMovieRecyclerViewAdapter(
             val movie = movies[adapterPosition]
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_EXTRA, movie)
-            context.startActivity(intent)
+            val poster = androidx.core.util.Pair<View, String>(ivPoster, "poster")
+            val title = androidx.core.util.Pair<View, String>(tvTitle, "title")
+            val overview = androidx.core.util.Pair<View, String>(tvOverview, "overview")
+            val option = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(context as Activity, poster, title, overview)
+            context.startActivity(intent, option.toBundle())
         }
     }
 
@@ -123,6 +132,7 @@ class MyMovieRecyclerViewAdapter(
                 .load(movie.backdropURL)
                 .placeholder(R.drawable.ic_placeholder)
                 .error(R.drawable.ic_warning)
+                .transform(RoundedCornersTransformation(30, 10))
                 .into(ivBackDrop)
         }
 
@@ -130,7 +140,10 @@ class MyMovieRecyclerViewAdapter(
             val movie = movies[adapterPosition]
             val intent = Intent(context, DetailActivity::class.java)
             intent.putExtra(MOVIE_EXTRA, movie)
-            context.startActivity(intent)
+            val poster = androidx.core.util.Pair<View, String>(ivBackDrop, "poster")
+            val option = ActivityOptionsCompat
+                .makeSceneTransitionAnimation(context as Activity, poster)
+            context.startActivity(intent, option.toBundle())
         }
     }
 }
